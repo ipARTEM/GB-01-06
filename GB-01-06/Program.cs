@@ -32,12 +32,87 @@ namespace GB_01_06
 
             Process[] processes = Process.GetProcesses();
 
-            Console.WriteLine("  Id процесса   | Имя процесса");
+            Console.WriteLine("   Старт процесса    |  Id процесса   | Имя процесса");
             foreach (var i in processes)
             {
-                Console.WriteLine($"  {i.Id}          {i.ProcessName}") ;
+                try
+                {
+                   Console.WriteLine($"{i.StartTime}     {i.Id}          {i.ProcessName}") ;
+                }
+                catch 
+                {
+                    Console.WriteLine($"                       {i.Id}          {i.ProcessName}");
 
+                }   
+         
             };
+            int enterInt = 3;
+            int enterIdInt = 0;
+            do
+            {
+                Console.WriteLine("Если Вы нажмёте на: ");
+                Console.WriteLine("                   '0' и Ввод, то Вы выйдите из программы");
+                Console.WriteLine("                   '1' и Ввод, то Вы сможете закрыть процесс по Id процесса");
+                Console.WriteLine("                   '2' и Ввод, то Вы сможете закрыть процесс по Имени процесса");
+
+                try
+                {
+                    string enter = Console.ReadLine();
+
+                     enterInt = Convert.ToInt32( enter);
+                }
+                catch (Exception)
+                { 
+                }
+
+            } while (!(enterInt == 0 || enterInt == 1|| enterInt == 2));
+
+            if (enterInt == 1)
+            {
+                Console.WriteLine("Выберите Id процесс для закрытия: ");
+
+                try
+                {
+                    string enterId = Console.ReadLine();
+
+                    enterIdInt = Convert.ToInt32(enterId);
+
+                    foreach (var i in processes)
+                    {
+                        if (enterIdInt == i.Id)
+                        {
+                            i.Kill();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+            else if (enterInt == 2)
+            {
+                Console.WriteLine("Выберите Именя процесс для закрытия: ");
+
+                try
+                {
+                    string enterName = Console.ReadLine();
+                    foreach (var i in processes)
+                    {
+                        if (enterName == i.ProcessName)
+                        {
+                            i.Kill();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+
+
+
+
 
 
 
